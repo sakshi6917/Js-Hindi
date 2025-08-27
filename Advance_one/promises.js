@@ -9,7 +9,7 @@ setTimeout(function(){
 
 promiseOne.then(function(){
     console.log('Promise Consumed');
-    
+
 })
 
 
@@ -41,7 +41,7 @@ promiseThree.then(function(user){
 const promiseFour=new Promise(function(resolve,reject)
 {
     setTimeout(function(){
-        let error=true
+        let error=false
         if(!error)
         {
             resolve({username:"kartik",email:"kartik45@gmail.com"})           //this will be printed when there is no error
@@ -67,19 +67,59 @@ promiseFour.then(function(user){                     // all of then(),catch() an
 console.log(error);
 }).finally(()=>{
     console.log('The promise is either resolved or rejected');
-    
+
 })
 
 
 
-const promiseFive=newPromise(function(resolve,reject){
+const promiseFive=new Promise(function(resolve,reject){
     setTimeout(function(){
         let error=true
         if(!error)
             resolve({username:"jasvascript",password:"123"});
         else
             reject('ERROR:JS went wrong')
-            
+
     },1000)
 })
+
+async function consumePromiseFive(){
+    // const response=await promiseFive
+    // console.log(response); 
+    try{
+    const response=await promiseFive
+    console.log(response); 
+    }
+    catch(error){
+    console.log(error);
+
+    }
+}
+consumePromiseFive()
+
+
+
+// async function getAllUsers() {
+//     try {
+//         const response = await fetch('https://jsonplaceholder.typicode.com/users')
+//         // console.log(response);
+        
+//         const data =await response.json()
+//         console.log(data);
+//     }
+//     catch(error){
+//         console.log('E:',error);
+        
+//     }
+   
+// }
+// getAllUsers()
+
+fetch('https://jsonplaceholder.typicode.com/users')
+.then((response)=>{
+    return response.json()
+}).then((data)=>{
+    console.log(data);}
+).catch((error)=>console.log(error))
+    
 
